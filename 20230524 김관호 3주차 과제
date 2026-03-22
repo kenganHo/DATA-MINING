@@ -1,0 +1,223 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/kenganHo/DATA-MINING/blob/main/20230524%20%EA%B9%80%EA%B4%80%ED%98%B8%203%EC%A3%BC%EC%B0%A8%20%EA%B3%BC%EC%A0%9C\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch3/members.csv\")\n",
+        "\n",
+        "df = df.dropna()\n",
+        "\n",
+        "\n",
+        "df = df.iloc[:int(len(df)*0.7)]\n",
+        "\n",
+        "print(int(df['f1'].quantile(.25)))"
+      ],
+      "metadata": {
+        "id": "tLnzLwhVEEXe",
+        "outputId": "801137a4-8d29-4625-f6d0-3ea50c403f00",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "57\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch3/members.csv\")\n",
+        "\n",
+        "\n",
+        "df_cntNull = df.isnull().sum()\n",
+        "\n",
+        "\n",
+        "df_cntNull = df_cntNull.sort_values(ascending=False)\n",
+        "\n",
+        "print(df_cntNull.index[0])"
+      ],
+      "metadata": {
+        "id": "DAU0SJ57EIJi",
+        "outputId": "0893bbd5-3fa7-4636-d9e0-769efb05e5a5",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "f1\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch4/data4-1.csv\")\n",
+        "\n",
+        "\n",
+        "q1 = df['age'].quantile(0.25)\n",
+        "q3 = df['age'].quantile(0.75)\n",
+        "result = abs(q1 - q3)\n",
+        "\n",
+        "print(int(result))"
+      ],
+      "metadata": {
+        "id": "0kiUEGCKFN2O",
+        "outputId": "4a74e34d-dcfb-408f-989e-320cd90948cc",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "50\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch4/data4-2.csv\")\n",
+        "\n",
+        "cond1 = (df['loves'] + df['wows']) / df['reactions'] > 0.4\n",
+        "cond2 = (df['loves'] + df['wows']) / df['reactions'] < 0.5\n",
+        "\n",
+        "cond3 = df['type'] == 'video'\n",
+        "\n",
+        "print(len(df[cond1 & cond2 & cond3]))"
+      ],
+      "metadata": {
+        "id": "r61XdBkJFRRd",
+        "outputId": "b5b606dc-d68c-48eb-8ba3-724307b5038f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "90\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch5/data5-2.csv\")\n",
+        "\n",
+        "df['bmi'] = df['Weight'] / (df['Height']/100)**2\n",
+        "\n",
+        "cond1 = (df['bmi'] >= 18.5) & (df['bmi'] < 23)\n",
+        "\n",
+        "cond2 = (df['bmi'] >= 23) & (df['bmi'] < 25)\n",
+        "\n",
+        "print(abs(len(df[cond1]) - len(df[cond2])))"
+      ],
+      "metadata": {
+        "id": "GJeKa1ioFZut",
+        "outputId": "5f2d0d13-220f-481d-be29-fc07a4b06804",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "144\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_csv(\"https://raw.githubusercontent.com/lovedlim/bigdata_analyst_cert/main/part4/ch7/student_assessment.csv\")\n",
+        "\n",
+        "df = df.dropna()\n",
+        "\n",
+        "id = df['id_assessment'].value_counts().idxmax()\n",
+        "cond = df['id_assessment'] == id\n",
+        "df = df[cond]\n",
+        "\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "scaler = StandardScaler()\n",
+        "df['score'] = scaler.fit_transform(df[['score']])\n",
+        "\n",
+        "print(round(df['score'].max(), 3))"
+      ],
+      "metadata": {
+        "id": "0wEq4vZgFgDc",
+        "outputId": "e4f53aae-9dbc-45cf-d133-432d1a0fe31f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.183\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Colab 시작하기",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
